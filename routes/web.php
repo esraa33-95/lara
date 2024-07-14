@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Redirect;
+
 use App\Http\Controllers\Xcontroller;
-use App\Http\Middleware\Test;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -124,75 +124,9 @@ Route::prefix('cars')->group (function() {
 
 
 //fallback
-
-// Route::fallback( function () {
-//     return redirect('/');
-// });
-
- //Route::fallback(fn()=> redirect('cars'));
-
- //Route::fallback(fn()=> Redirect::to('cars/usa/ford'));
-
-// Route::get('hello', function(){
-//     return view('car');
-// });
-
-
-
-//  Route::view('lara','data');
-
-//  //route name
-
-//  Route::get('data', function () {
-//     return view('data');
-// });
-
-
-// Route::post('receive/{id}', function ($id) {
-//     return '<h1>welcome lara</h1>';
-// })->name('receive');
-
-
-// //controller
-// Route::get('hi',[Xcontroller::class,'my_data']);
-
-// // Route::controller(Xcontroller::class)->group( function(){
-// //     Route::get('data1','my_data');
-// // });
-
-// // Route::get('data', function () {
-// //     return view('data');
-// // })->middleware('guest');
-
-// // Route::middleware('auth')->group(function(){
-// //     Route::prefix('account')->group (function() {
-// //         Route::get('', function () {
-// //             return 'account index';
-// //         });
-// //         Route::get('admin', function () {
-// //             return 'account admin';
-// //         });
-// //         Route::get('user', function () {
-// //             return 'account user';
-// //         });
-    
-// //     });
-
-
-//     Route::group(['middleware'=>'Test:1'], function(){
-//         Route::get('data',fn()=>'welcome test');
-
-// });
-
-
-
-
-
-
-
-// Route::fallback(function(){
-//    return redirect('/');
-// });
+Route::fallback(function(){
+   return redirect('/');
+});
 
 Route::get('cv',function(){
     return view('cv');
