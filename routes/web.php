@@ -216,7 +216,7 @@ Route::get('goodbye',function(){
 Route::get('login',function(){
     return view('login');
 });
-///
+//
 Route::post('s',function(){
     return 'submit sucess';
 })->name('submit');
