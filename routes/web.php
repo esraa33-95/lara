@@ -133,53 +133,90 @@ Route::prefix('cars')->group (function() {
 
  //Route::fallback(fn()=> Redirect::to('cars/usa/ford'));
 
-Route::get('hello', function(){
-    return view('car');
-});
-
-
-
- Route::view('lara','data');
-
- //route name
-
- Route::get('data', function () {
-    return view('data');
-});
-
-
-Route::post('receive/{id}', function ($id) {
-    return '<h1>welcome lara</h1>';
-})->name('receive');
-
-
-//controller
-Route::get('hi',[Xcontroller::class,'my_data']);
-
-// Route::controller(Xcontroller::class)->group( function(){
-//     Route::get('data1','my_data');
+// Route::get('hello', function(){
+//     return view('car');
 // });
 
-// Route::get('data', function () {
+
+
+//  Route::view('lara','data');
+
+//  //route name
+
+//  Route::get('data', function () {
 //     return view('data');
-// })->middleware('guest');
+// });
 
-// Route::middleware('auth')->group(function(){
-//     Route::prefix('account')->group (function() {
-//         Route::get('', function () {
-//             return 'account index';
-//         });
-//         Route::get('admin', function () {
-//             return 'account admin';
-//         });
-//         Route::get('user', function () {
-//             return 'account user';
-//         });
+
+// Route::post('receive/{id}', function ($id) {
+//     return '<h1>welcome lara</h1>';
+// })->name('receive');
+
+
+// //controller
+// Route::get('hi',[Xcontroller::class,'my_data']);
+
+// // Route::controller(Xcontroller::class)->group( function(){
+// //     Route::get('data1','my_data');
+// // });
+
+// // Route::get('data', function () {
+// //     return view('data');
+// // })->middleware('guest');
+
+// // Route::middleware('auth')->group(function(){
+// //     Route::prefix('account')->group (function() {
+// //         Route::get('', function () {
+// //             return 'account index';
+// //         });
+// //         Route::get('admin', function () {
+// //             return 'account admin';
+// //         });
+// //         Route::get('user', function () {
+// //             return 'account user';
+// //         });
     
-//     });
+// //     });
 
 
-    Route::group(['middleware'=>'Test:1'], function(){
-        Route::get('data',fn()=>'welcome test');
+//     Route::group(['middleware'=>'Test:1'], function(){
+//         Route::get('data',fn()=>'welcome test');
 
+// });
+
+
+
+
+
+
+
+// Route::fallback(function(){
+//    return redirect('/');
+// });
+
+Route::get('cv',function(){
+    return view('cv');
 });
+
+
+Route::get('link',function(){
+    $url = route('w');
+    $url2 = route('g');
+    return "<a href='$url'> go to welcome </a> <br> <a href='$url2'> go to page </a> ";
+});
+
+Route::get('welcome',function(){
+    return 'welcome to laravel';
+})->name('w');
+
+Route::get('goodbye',function(){
+    return 'welcome to page';
+})->name('g');
+
+Route::get('login',function(){
+    return view('login');
+});
+//
+Route::post('s',function(){
+    return 'submit sucess';
+})->name('submit');
