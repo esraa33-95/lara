@@ -184,21 +184,22 @@ Route::post('s',function(){
 //     return view('cv');
 //   })->name('submit');
 
-//controller
-// Route::post('users',[Xcontroller::class,'my_data']);
 
-//task 3
+
+//controller
+ Route::post('users',[Xcontroller::class,'my_data']);
 
 Route::get('form',function(){
     return view('form');
 });
 
-Route::post('get_data',function(Request $request){
-    $name      =$request->input('name');
-    $email     =$request->input('email');
-    $message   =$request->input('msg');
-    $subject   =$request->input('subject');
 
-return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
-})->name('data');
+// Route::post('get_data',function(Request $request){
+//     $name      =$request->input('name');
+//     $email     =$request->input('email');
+//     $message   =$request->input('msg');
+//     $subject   =$request->input('subject');
+
+// return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
+// })->name('data');
 
