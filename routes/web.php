@@ -1,7 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Xcontroller;
 
 
@@ -123,20 +122,23 @@ Route::prefix('cars')->group (function() {
 });
 
 
-//fallback
-Route::fallback(function(){
-   return redirect('/');
-});
+//fallback (if not found error:404)
+// Route::fallback(function(){
+//    return redirect('/');
+// });  
 
+
+//view page cv from resources,views,cv.blade.php
 Route::get('cv',function(){
     return view('cv');
 });
 
 
+//link to page
 Route::get('link',function(){
-    $url = route('w');
+    $url1 = route('w');
     $url2 = route('g');
-    return "<a href='$url'> go to welcome </a> <br> <a href='$url2'> go to page </a> ";
+    return "<a href='$url1'> go to welcome </a> <br> <a href='$url2'> go to page </a> ";
 });
 
 Route::get('welcome',function(){
@@ -147,10 +149,54 @@ Route::get('goodbye',function(){
     return 'welcome to page';
 })->name('g');
 
+
+// Route::get('main',function(){
+//     $url = route('w');
+//     $url4 = route('h');
+//     return "<a href='$url'>welcome</a> <br> <a href='$url4'>login</a>";
+// });
+
+// Route::get('welcome',function(){
+//     return 'hi esraa';
+// })->name('w');
+
+// Route::get('log',function(){
+//     return view('login');
+// })->name('h');
+
+
+
+//form submit
+
 Route::get('login',function(){
     return view('login');
 });
-//
+
 Route::post('s',function(){
     return 'submit sucess';
 })->name('submit');
+
+
+// Route::get('login',function(){
+//   return view('login');
+// });
+// Route::post('s',function(){
+//     return view('cv');
+//   })->name('submit');
+
+//controller
+// Route::post('users',[Xcontroller::class,'my_data']);
+
+Route::get('form',function(){
+    return view('form');
+});
+
+Route::post('get_data',function(Request $request){
+    $name      =$request->input('name');
+    $email     =$request->input('email');
+    $message   =$request->input('msg');
+    $subject   =$request->input('subject');
+
+return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
+})->name('data');
+
