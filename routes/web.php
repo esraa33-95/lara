@@ -187,6 +187,8 @@ Route::post('s',function(){
 //controller
 // Route::post('users',[Xcontroller::class,'my_data']);
 
+//task 3
+
 Route::get('form',function(){
     return view('form');
 });
