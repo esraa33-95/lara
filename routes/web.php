@@ -186,7 +186,7 @@ Route::post('s',function(){
 
 
 
-//task 3
+//task 3.1
 Route::post('users',[Xcontroller::class,'my_data']);
 
 Route::get('form',function(){
@@ -194,12 +194,12 @@ Route::get('form',function(){
 });
 
 
-// Route::post('get_data',function(Request $request){
-//     $name      =$request->input('name');
-//     $email     =$request->input('email');
-//     $message   =$request->input('msg');
-//     $subject   =$request->input('subject');
+Route::post('get_data',function(Request $request){
+    $name      =$request->input('name');
+    $email     =$request->input('email');
+    $message   =$request->input('msg');
+    $subject   =$request->input('subject');
 
-// return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
-// })->name('data');
+return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
+})->name('data');
 
