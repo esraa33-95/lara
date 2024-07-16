@@ -194,12 +194,37 @@ Route::get('form',function(){
 });
 
 
-Route::post('get_data',function(Request $request){
-    $name      =$request->input('name');
-    $email     =$request->input('email');
-    $message   =$request->input('msg');
-    $subject   =$request->input('subject');
+// Route::post('get_data',function(Request $request){
+//   $name      =$request['name'];
+// $email     =$request['email'];
+// $message   =$request['msg'];
+// $subject   =$request['subject'];
 
-return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
-})->name('data');
+// return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
+// })->name('data');
+
+
+
+
+
+
+
+// // Route::middleware('guest')->get('d', function(){
+// //     return 'welcome';
+// // });
+
+// Route::get('data1', function(){
+//     return view('form');
+// })->middleware('guest');
+
+
+// Route::middleware('auth')->group(function(){
+// Route::get('data', function(){
+//     return view('form');
+// });
+// Route::get('d1', function(){
+//     return view('cv');
+// });
+// });
+
 
