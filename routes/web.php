@@ -2,6 +2,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Xcontroller;
+use App\Http\Controllers\EController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\ClassesController;
 
 
 Route::get('/', function () {
@@ -187,7 +190,8 @@ Route::post('s',function(){
 
 
 //task 3.1
-Route::post('users',[Xcontroller::class,'my_data']);
+// Route::post('users',[Xcontroller::class,'my_data']);
+
 
 Route::get('form',function(){
     return view('form');
@@ -195,7 +199,7 @@ Route::get('form',function(){
 
 
 // Route::post('get_data',function(Request $request){
-//   $name      =$request['name'];
+// $name      =$request['name'];
 // $email     =$request['email'];
 // $message   =$request['msg'];
 // $subject   =$request['subject'];
@@ -206,25 +210,9 @@ Route::get('form',function(){
 
 
 
+Route::get('cars/create',[CarController::class,'create'])->name('cars.create');
+Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
 
 
-
-// // Route::middleware('guest')->get('d', function(){
-// //     return 'welcome';
-// // });
-
-// Route::get('data1', function(){
-//     return view('form');
-// })->middleware('guest');
-
-
-// Route::middleware('auth')->group(function(){
-// Route::get('data', function(){
-//     return view('form');
-// });
-// Route::get('d1', function(){
-//     return view('cv');
-// });
-// });
-
-
+Route::get('classes/create',[ClassesController::class,'create'])->name('classes.create');
+Route::post('classes/store',[ClassesController::class,'store'])->name('classes.store');
