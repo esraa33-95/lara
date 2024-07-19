@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 class XController extends Controller
 {
-
+   
     public function my_data(Request $request){
         $name      =$request['name'];
         $email     =$request['email'];
@@ -15,3 +15,4 @@ class XController extends Controller
     return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
     }
 }
+
