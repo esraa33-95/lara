@@ -28,13 +28,17 @@ class ClassesController extends Controller
     public function store(Request $request)
     {
          //dd($request);
-         $classname    ='yoga';
+         $classname    ='swimming';
          $capacity     = 40;
          $price        = 400;
          $isfilled     = true;
-         $timefrom     = 10;
-         $timeto       = 2;
 
+         $validatedData = $request->validate([
+            'timefrom' => 'required|date_format:H:i',
+            'timeto' => 'required|date_format:H:i',
+        ]);
+        $timefrom = $validatedData['timefrom'] ?? '10:30'; 
+        $timeto = $validatedData['timeto'] ?? '2:30'; 
   
          Class1::create([
              'classname'=> $classname,
@@ -43,6 +47,7 @@ class ClassesController extends Controller
              'isfilled' => $isfilled,
              'timefrom' => $timefrom,
             'timeto'    => $timeto,
+            
          ]);
         
          return 'data added successfully';
