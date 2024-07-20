@@ -33,6 +33,7 @@ class ClassesController extends Controller
          $capacity     = 40;
          $price        = 400;
          $isfilled     = true;
+         
          $timefrom = date('H:i:s', strtotime('10:02:03'));
          $timeto = date('H:i:s', strtotime('12:50:05'));
          Class1::create([
