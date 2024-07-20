@@ -213,9 +213,9 @@ Route::get('form',function(){
 Route::get('cars/create',[CarController::class,'create'])->name('cars.create');
 Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
 
-
+//task4
 Route::get('classes/create',[ClassesController::class,'create'])->name('classes.create');
 Route::post('classes/store',[ClassesController::class,'store'])->name('classes.store');
 
-Route::get('cats/create',[CatsController::class,'create'])->name('cats.create');
-Route::post('cats/store',[CatsController::class,'store'])->name('cats.store');
+// Route::get('cats/create',[CatsController::class,'create'])->name('cats.create');
+// Route::post('cats/store',[CatsController::class,'store'])->name('cats.store');
