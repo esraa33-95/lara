@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Class1;
- //use App\Http\controllers\time;
-class ClassesController extends Controller
+use App\Models\cat;
+
+class CatsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        return view('add_classes');
+        return view('add_cat');
     }
 
     /**
@@ -28,24 +28,17 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-         //dd($request);
-         $classname    ='swimming';
-         $capacity     = 40;
-         $price        = 400;
-         $isfilled     = true;
-         $timefrom = date('H:i:s', strtotime('10:02:03'));
-         $timeto = date('H:i:s', strtotime('12:50:05'));
-         Class1::create([
-             'classname'=> $classname,
-             'capacity' => $capacity,
-             'price'    => $price,
-             'isfilled' => $isfilled,
-             'timefrom' => $timefrom,
-            'timeto'    => $timeto,
-            
-         ]);
-        
-         return 'data added successfully';
+        $name = 'noor';
+        $price = 2000;
+        $type = 'siami';
+      
+        cat::create([
+            'name'=>$name,
+            'price'=>$price,
+            'type'=>$type,
+        ]);
+        return 'good job';
+
     }
 
     /**

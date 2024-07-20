@@ -5,7 +5,7 @@ use App\Http\Controllers\Xcontroller;
 use App\Http\Controllers\EController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassesController;
-
+use App\Http\Controllers\CatsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -216,3 +216,6 @@ Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
 
 Route::get('classes/create',[ClassesController::class,'create'])->name('classes.create');
 Route::post('classes/store',[ClassesController::class,'store'])->name('classes.store');
+
+Route::get('cats/create',[CatsController::class,'create'])->name('cats.create');
+Route::post('cats/store',[CatsController::class,'store'])->name('cats.store');
