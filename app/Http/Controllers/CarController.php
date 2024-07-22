@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Car;
 class CarController extends Controller
 {
@@ -11,7 +12,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+       $cars = car::get();
+       return view('cars',compact('cars'));
     }
 
     /**
@@ -27,19 +29,14 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        $cartitle    ='bmw';
-        $price       = 12;
-        $description = 'test';
-        $published   = true;
- 
-        Car::create([
-            'cartitle'    => $cartitle,
-            'price'       => $price,
-            'description' => $description,
-            'published'   => $published,
-
-        ]);
+        $data =[
+            'cartitle' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'published' => isset($request->published),
+        ];
+      car::create($data);
+        
        
         return 'data added successfully';
     }
@@ -57,7 +54,8 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $car = car::findorfail($id);
+        return view('edit_car',compact('car'));
     }
 
     /**

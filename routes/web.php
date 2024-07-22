@@ -210,12 +210,18 @@ Route::get('form',function(){
 
 
 
-Route::get('cars/create',[CarController::class,'create'])->name('cars.create');
+Route::get('cars-create',[CarController::class,'create'])->name('cars.create');
 Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
+
+Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
+Route::get('cars1/{id}',[CarController::class,'edit'])->name('cars1.edit');
+
 
 //task4
 Route::get('classes/create',[ClassesController::class,'create'])->name('classes.create');
 Route::post('classes/store',[ClassesController::class,'store'])->name('classes.store');
 
-// Route::get('cats/create',[CatsController::class,'create'])->name('cats.create');
-// Route::post('cats/store',[CatsController::class,'store'])->name('cats.store');
+Route::get('classes',[ClassesController::class,'index'])->name('classes.index');
+Route::get('classes/{id}',[ClassesController::class,'edit'])->name('classes.edit');
+
+

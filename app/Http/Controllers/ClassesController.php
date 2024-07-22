@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Class1;
- //use App\Http\controllers\time;
+use App\Models\class1;
+
+ 
 class ClassesController extends Controller
 {
+   
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $classes = class1::get();
+      return view('classes',compact('classes'));
     }
 
     /**
@@ -20,7 +23,7 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        return view('add_classes');
+         return view('add_classes');
     }
 
     /**
@@ -28,23 +31,36 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-         //dd($request);
-         $classname    ='swimming';
-         $capacity     = 40;
-         $price        = 400;
-         $isfilled     = true;
-         //format time
-         $timefrom = date('H:i:s', strtotime('10:02:03'));
-         $timeto = date('H:i:s', strtotime('12:50:05'));
-         Class1::create([
-             'classname'=> $classname,
-             'capacity' => $capacity,
-             'price'    => $price,
-             'isfilled' => $isfilled,
-             'timefrom' => $timefrom,
-            'timeto'    => $timeto,
+        //task5
+        $data =[
+            'classname'=>$request->classname,
+            'capacity'=>$request->capacity,
+            'price'=>$request->price,
+            'isfilled' =>($request->isfilled === 'on' )? 1 : 0,
+            'timefrom' => date($request->timefrom, time()), 
+            'timeto' => date($request->timeto, time()),
+        ];
+         Class1 ::create($data);
+         
+          
+
+        //  $classname    ='swimming';
+        //  $capacity     = 40;
+        //  $price        = 400;
+        //  $isfilled     = true;
+        //  $timefrom = '1:20:30';
+        //  $timeto = '3:30:06';
+        // //  $timefrom = date('H:i:s', strtotime('10:02:03'));
+        // //  $timeto = date('H:i:s', strtotime('12:50:05'));
+        //  Class1::create([
+        //      'classname'=> $classname,
+        //      'capacity' => $capacity,
+        //      'price'    => $price,
+        //      'isfilled' => $isfilled,
+        //      'timefrom' => $timefrom,
+        //      'timeto'    => $timeto,
             
-         ]);
+        //  ]);
         
          return 'data added successfully';
     }
@@ -62,7 +78,8 @@ class ClassesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $class = class1::findorfail($id);
+        return view('edit_class',compact('class'));
     }
 
     /**

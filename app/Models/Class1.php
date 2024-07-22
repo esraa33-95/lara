@@ -10,6 +10,7 @@ class Class1 extends Model
     use HasFactory;
 
     protected $table = 'classes';
+    
 
     protected $fillable=[
       'classname',
