@@ -36,7 +36,8 @@ class ClassesController extends Controller
             'classname'=>$request->classname,
             'capacity'=>$request->capacity,
             'price'=>$request->price,
-            'isfilled' =>($request->isfilled === 'on' )? 1 : 0,
+            'isfilled' =>isset($request->isfilled),
+            // 'isfilled' =>($request->isfilled === 'on' )? 1 : 0,
             'timefrom' => date($request->timefrom, time()), 
             'timeto' => date($request->timeto, time()),
         ];
