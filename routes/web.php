@@ -2,7 +2,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Xcontroller;
-use App\Http\Controllers\EController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\CatsController;
@@ -191,37 +190,53 @@ Route::post('s',function(){
 
 //task 3.1
 // Route::post('users',[Xcontroller::class,'my_data']);
-
-
-Route::get('form',function(){
-    return view('form');
-});
-
-
-// Route::post('get_data',function(Request $request){
-// $name      =$request['name'];
-// $email     =$request['email'];
-// $message   =$request['msg'];
-// $subject   =$request['subject'];
-
-// return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
-// })->name('data');
-
+// Route::get('form',function(){
+//     return view('form');
+// });
 
 
 
 Route::get('cars-create',[CarController::class,'create'])->name('cars.create');
 Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
-
+//index
 Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
-Route::get('cars1/{id}',[CarController::class,'edit'])->name('cars1.edit');
+//edit
+Route::get('cars1/{id}/edit',[CarController::class,'edit'])->name('cars1.edit');
+//update
+Route::put('cars1/{id}/update',[CarController::class,'update'])->name('cars1.update');
+//show
+Route::get('cars1/{id}/show',[CarController::class,'show'])->name('cars1.show');
+
+//destroy delete
+Route::get('cars1/{id}/delete',[CarController::class,'destroy'])->name('cars1.destroy');
+
+//request delete
+// Route::delete('cars1/destroy',[CarController::class,'destroy'])->name('cars1.delete');
+
+//showsoftdeleted
+Route::get('cars1/trashed',[CarController::class,'showDeleted'])->name('cars1.showDeleted');
 
 
 //task4
+//create
 Route::get('classes/create',[ClassesController::class,'create'])->name('classes.create');
+//store
 Route::post('classes/store',[ClassesController::class,'store'])->name('classes.store');
-
+//index
 Route::get('classes',[ClassesController::class,'index'])->name('classes.index');
-Route::get('classes/{id}',[ClassesController::class,'edit'])->name('classes.edit');
+//edit
+Route::get('classes/{id}/edit',[ClassesController::class,'edit'])->name('classes.edit');
+//update
+Route::put('classes/{id}/update',[ClassesController::class,'update'])->name('classes.update');
+//show
+Route::get('classes/{id}/show',[ClassesController::class,'show'])->name('classes.show');
+//delete
+Route::delete('classes/delete',[ClassesController::class,'destroy'])->name('classes.destroy');
+//trashed
+Route::get('classes/trashed',[ClassesController::class,'showDeleted'])->name('classes.showDeleted');
+
+
+
+
 
 

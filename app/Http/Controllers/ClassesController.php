@@ -38,11 +38,11 @@ class ClassesController extends Controller
             'price'=>$request->price,
             'isfilled' =>isset($request->isfilled),
             // 'isfilled' =>($request->isfilled === 'on' )? 1 : 0,
-            'timefrom' => date($request->timefrom, time()), 
-            'timeto' => date($request->timeto, time()),
+            'timefrom' =>$request->timefrom, 
+            'timeto' =>$request->timeto,
         ];
          Class1 ::create($data);
-         
+         return redirect()->route('classes.index');
           
 
         //  $classname    ='swimming';
@@ -51,8 +51,8 @@ class ClassesController extends Controller
         //  $isfilled     = true;
         //  $timefrom = '1:20:30';
         //  $timeto = '3:30:06';
-        // //  $timefrom = date('H:i:s', strtotime('10:02:03'));
-        // //  $timeto = date('H:i:s', strtotime('12:50:05'));
+
+        
         //  Class1::create([
         //      'classname'=> $classname,
         //      'capacity' => $capacity,
@@ -63,7 +63,7 @@ class ClassesController extends Controller
             
         //  ]);
         
-         return 'data added successfully';
+         
     }
 
     /**
@@ -71,7 +71,9 @@ class ClassesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $class = class1::findOrfail($id);
+        return view('classes_details',compact('class'));
+        
     }
 
     /**
@@ -79,7 +81,7 @@ class ClassesController extends Controller
      */
     public function edit(string $id)
     {
-        $class = class1::findorfail($id);
+        $class = class1::findOrfail($id);
         return view('edit_class',compact('class'));
     }
 
@@ -88,14 +90,32 @@ class ClassesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data =[
+            'classname'=>$request->classname,
+            'capacity'=>$request->capacity,
+            'price'=>$request->price,
+            'isfilled' =>isset($request->isfilled),
+            // 'isfilled' =>($request->isfilled === 'on' )? 1 : 0,
+            'timefrom' =>$request->timefrom, 
+            'timeto' =>$request->timeto,
+        ];
+
+      class1::where('id',$id)->update($data);
+      return redirect()->route('classes.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        class1::where('id',$id)->delete();
+        return redirect()->route('classes.index');
+    }
+
+    public function showDeleted(){
+        $class = class1::onlyTrashed()->get();
+      return view('trashedclass',compact('class'));
     }
 }

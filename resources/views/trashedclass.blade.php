@@ -23,39 +23,33 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">All Cars</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Cars</h2>
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
-              <th scope="col">Car Title</th>
+              <th scope="col">Classname</th>
               <th scope="col">Price</th>
-              <th scope="col">Description</th>
-              <th scope="col">Published</th>
+              <th scope="col">isfilled</th>
+              <th scope="col">capacity</th>
+              <th scope="col">timefrom</th>
+              <th scope="col">timeto</th>
               <th scope="col">Edit</th>
               <th scope="col">show</th>
-              <th scope="col">delete</th>
+              <th scope="col">permenant delete</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($cars as $car )
+            @foreach($class as $classt )
             <tr>
-              <td scope="row">{{$car['cartitle']}}</td>
-              <td>{{$car['price']}}</td>
-              <td>{{Str::limit($car['description'], 7, ',,,')}}</td>
-              <td>{{($car['published'] == 1) ? "yes" : "no"}}</td>
-              <td><a href="{{route('cars1.edit',$car['id'])}}">edit</a></td>
-              <td><a href="{{route('cars1.show',$car['id'])}}">show</a></td>
-              {{-- <td>
-                <form action="{{ route('cars1.delete') }}" method="post">
-                  @csrf
-                  @method('DELETE')
-                  <input type="hidden" name="id" value="{{ $car->id }}">
-                  <input type="submit" value="delete">
-                 </form>
-            
-              </td> --}}
-              
-              <td><a href="{{route('cars1.destroy',$car['id'])}}" onclick="confirm('are you sure you want to delete?')">delete</a></td>
+              <td scope="row">{{$classt['classname']}}</td>
+              <td>{{$classt['price']}}</td>
+              <td>{{($classt['isfilled']== 1) ? "yes" : "no"}}</td>
+              <td>{{$classt['capacity'] }}</td>
+              <td>{{$classt['timefrom'] }}</td>
+              <td>{{$classt['timeto'] }}</td>
+              <td><a href="{{route('classes.edit',$classt['id'])}}">edit</a></td>
+              <td><a href="{{route('classes.show',$classt['id'])}}">show</a></td>
+              <td><a href="#">delete</a></td>
             </tr>
             @endforeach
           </tbody>
