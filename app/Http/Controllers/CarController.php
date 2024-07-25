@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Car;
 class CarController extends Controller
 {
@@ -11,7 +12,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+       $cars = car::get();
+       return view('cars',compact('cars'));
     }
 
     /**
@@ -27,21 +29,16 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        $cartitle    ='bmw';
-        $price       = 12;
-        $description = 'test';
-        $published   = true;
- 
-        Car::create([
-            'cartitle'    => $cartitle,
-            'price'       => $price,
-            'description' => $description,
-            'published'   => $published,
-
-        ]);
+        $data =[
+            'cartitle' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'published' => isset($request->published),
+        ];
+      car::create($data);
+        
        
-        return 'data added successfully';
+      return redirect()->route('cars1.index');
     }
 
     /**
@@ -49,7 +46,8 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $car = car::findOrfail($id);
+        return view('cars_details',compact('car'));
     }
 
     /**
@@ -57,7 +55,8 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $car = car::findorfail($id);
+        return view('edit_car',compact('car'));
     }
 
     /**
@@ -65,14 +64,36 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data =[
+            'cartitle' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'published' => isset($request->published),
+        ];
+        car::where('id',$id)->update($data);
+        
+       
+        return redirect()->route('cars1.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        //  car::where('id',$id)->delete();
+        //return 'data deleted successfully';
+
+        $id = $request->id;
+        Car::where('id', $id)->delete();    
+        return redirect()->route('cars1.index');
+  
     }
+   public function showDeleted(){
+
+    $cars = car::onlyTrashed()->get();
+    return view('trashedcars',compact('cars'));
+   }
+
+
 }
