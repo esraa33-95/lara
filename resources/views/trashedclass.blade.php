@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All Car</title>
+  <title>All Classes</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
               <th scope="col">timeto</th>
               <th scope="col">Edit</th>
               <th scope="col">show</th>
-              <th scope="col">permenant delete</th>
+              <th scope="col"> delete</th>
             </tr>
           </thead>
           <tbody>
@@ -49,7 +49,15 @@
               <td>{{$classt['timeto'] }}</td>
               <td><a href="{{route('classes.edit',$classt['id'])}}">edit</a></td>
               <td><a href="{{route('classes.show',$classt['id'])}}">show</a></td>
-              <td><a href="#">delete</a></td>
+              <td>
+                <form action="{{ route('classes.destroy') }}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <input type="hidden" name="id" value="{{ $classt->id }}">
+                  <input type="submit" value="delete">
+                 </form>
+            
+              </td>
             </tr>
             @endforeach
           </tbody>
