@@ -50,7 +50,7 @@
               <td><a href="{{route('classes.edit',$classt['id'])}}">edit</a></td>
               <td><a href="{{route('classes.show',$classt['id'])}}">show</a></td>
               <td>
-                <form action="{{ route('classes.destroy') }}" method="post">
+                <form action="" method="post">
                   @csrf
                   @method('DELETE')
                   <input type="hidden" name="id" value="{{ $classt->id }}">
