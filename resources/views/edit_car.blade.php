@@ -42,7 +42,7 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Description:</label>
             <div class="col-md-10">
-              <textarea name="description" id="" cols="30" rows="5" class="form-control py-2">{{$car->description}}</textarea>
+              <textarea   name="description" id="" cols="30" rows="5" class="form-control py-2">{{$car->description}}</textarea>
             </div>
           </div>
           <hr>

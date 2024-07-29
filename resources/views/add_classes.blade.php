@@ -35,13 +35,13 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Capacity:</label>
             <div class="col-md-10">
-              <input type="text" step="0.1" placeholder="" class="form-control py-2" name="capacity" />
+              <input type="number" step="0.1" placeholder="" class="form-control py-2" name="capacity" />
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">price:</label>
             <div class="col-md-10">
-              <input name="price" id="" cols="30" rows="5" class="form-control py-2"/>
+              <input type="number" name="price" step="0.1" cols="30" rows="5" class="form-control py-2"/>
             </div>
           </div>
           <hr>

@@ -31,7 +31,7 @@
               <th scope="col">Price</th>
               <th scope="col">Description</th>
               <th scope="col">Published</th>
-              <th scope="col">Edit</th>
+              <th scope="col">restore</th>
               <th scope="col">show</th>
               <th scope="col">permenant delete</th>
             </tr>
@@ -43,11 +43,24 @@
               <td>{{$car['price']}}</td>
               <td>{{Str::limit($car['description'], 7, ',,,')}}</td>
               <td>{{($car['published'] == 1) ? "yes" : "no"}}</td>
-              <td><a href="{{route('cars1.edit',$car['id'])}}">edit</a></td>
+              <td>
+                <form action="{{route('cars1.restore',$car['id'])}}" method="POST">
+                  @csrf
+                  @method('patch')
+                  <button type="submit" class="btn btn-link m-0 p-0">Restore</button>
+                </form>
+              </td>
+
               <td><a href="{{route('cars1.show',$car['id'])}}">show</a></td>
-             
+
+              <td>
+                <form  action="{{route('cars1.forceDelete', $car['id'])}}"  method="POST" >
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-link m-0 p-0">delete</button>
+                </form>
+              </td> 
               
-              <td><a href="">delete</a></td>
             </tr>
             @endforeach
           </tbody>

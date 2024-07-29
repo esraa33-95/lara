@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All Car</title>
+  <title>All Classes</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Cars</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Classes</h2>
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
@@ -33,9 +33,9 @@
               <th scope="col">capacity</th>
               <th scope="col">timefrom</th>
               <th scope="col">timeto</th>
-              <th scope="col">Edit</th>
-              <th scope="col">show</th>
-              <th scope="col">permenant delete</th>
+              <th scope="col">Restore</th>
+             
+              <th scope="col">forcedelete</th>
             </tr>
           </thead>
           <tbody>
@@ -47,9 +47,22 @@
               <td>{{$classt['capacity'] }}</td>
               <td>{{$classt['timefrom'] }}</td>
               <td>{{$classt['timeto'] }}</td>
-              <td><a href="{{route('classes.edit',$classt['id'])}}">edit</a></td>
-              <td><a href="{{route('classes.show',$classt['id'])}}">show</a></td>
-              <td><a href="#">delete</a></td>
+              <td>
+                <form action="{{route('classes.restore', $classt->id)}}" method="post">
+                  @csrf
+                  @method('patch')
+                  <button type="submit" class="btn btn-link m-0 p-0">Restore</button>
+                 </form>
+              </td>
+              
+              <td>
+                <form action="{{route('classes.forceDelete',$classt['id'])}}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-link m-0 p-0">delete</button>
+                 </form>
+            
+              </td>
             </tr>
             @endforeach
           </tbody>

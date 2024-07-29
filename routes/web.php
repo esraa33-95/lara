@@ -196,7 +196,8 @@ Route::post('s',function(){
 
 
 
-Route::get('cars-create',[CarController::class,'create'])->name('cars.create');
+// Route::prefix('cars')->group (function(){
+Route::get('cars/create',[CarController::class,'create'])->name('cars.create');
 Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
 //index
 Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
@@ -208,35 +209,50 @@ Route::put('cars1/{id}/update',[CarController::class,'update'])->name('cars1.upd
 Route::get('cars1/{id}/show',[CarController::class,'show'])->name('cars1.show');
 
 //destroy delete
-Route::get('cars1/{id}/delete',[CarController::class,'destroy'])->name('cars1.destroy');
+//Route::get('cars1/{id}/delete',[CarController::class,'destroy'])->name('cars1.destroy');
 
 //request delete
-// Route::delete('cars1/destroy',[CarController::class,'destroy'])->name('cars1.delete');
+ Route::delete('cars1/{id}/destroy',[CarController::class,'destroy'])->name('cars1.delete');
 
 //showsoftdeleted
 Route::get('cars1/trashed',[CarController::class,'showDeleted'])->name('cars1.showDeleted');
 
+//restore
+Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.restore');
+
+//forcedelete
+ Route::delete('cars/{id}/force',[CarController::class,'forceDelete'])->name('cars1.forceDelete');
+// });
+
+
+
 
 //task4
 //create
-Route::get('classes/create',[ClassesController::class,'create'])->name('classes.create');
+Route::prefix('classes')->group(function(){
+Route::get('create',[ClassesController::class,'create'])->name('classes.create');
 //store
-Route::post('classes/store',[ClassesController::class,'store'])->name('classes.store');
+Route::post('store',[ClassesController::class,'store'])->name('classes.store');
 //index
-Route::get('classes',[ClassesController::class,'index'])->name('classes.index');
+Route::get('',[ClassesController::class,'index'])->name('classes.index');
 //edit
-Route::get('classes/{id}/edit',[ClassesController::class,'edit'])->name('classes.edit');
+Route::get('{id}/edit',[ClassesController::class,'edit'])->name('classes.edit');
 //update
-Route::put('classes/{id}/update',[ClassesController::class,'update'])->name('classes.update');
+Route::put('{id}/update',[ClassesController::class,'update'])->name('classes.update');
 //show
-Route::get('classes/{id}/show',[ClassesController::class,'show'])->name('classes.show');
-//delete
-Route::delete('classes/delete',[ClassesController::class,'destroy'])->name('classes.destroy');
+Route::get('{class}/show',[ClassesController::class,'show'])->name('classes.show');
+//request delete
+Route::delete('delete',[ClassesController::class,'destroy'])->name('classes.destroy');
 //trashed
-Route::get('classes/trashed',[ClassesController::class,'showDeleted'])->name('classes.showDeleted');
+Route::get('trashed',[ClassesController::class,'showDeleted'])->name('classes.showDeleted');
+//restore
+Route::patch('{id}/restore',[ClassesController::class,'restore'])->name('classes.restore');
+//forcedelete
+Route::delete('{id}/forcedelete',[ClassesController::class,'forceDelete'])->name('classes.forceDelete');
+
+ });
 
 
-
-
-
+//resource
+//Route::resource('classes', ClassesController::class);
 

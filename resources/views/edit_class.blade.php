@@ -51,7 +51,7 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">isfilled:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" @checked($class->isfilled)/>
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="isfilled" @checked($class->isfilled)/>
             </div>
           </div>
           <hr>
