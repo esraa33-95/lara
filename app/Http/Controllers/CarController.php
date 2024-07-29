@@ -29,16 +29,27 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        $data =[
-            'cartitle' => $request->title,
-            'description' => $request->description,
-            'price' => $request->price,
-            'published' => isset($request->published),
-        ];
-      car::create($data);
+        $data = $request->validate([
+            'cartitle'=> 'required|string',
+            'description'=> 'required|string',
+            'price'=> 'required|decimal:1',
+        ]);
+
+        $data['published'] = isset($request->published);
+        //dd($data);
+        car::create($data);
+        return redirect()->route('cars1.index');
+
+    //     $data =[
+    //         'cartitle' => $request->title,
+    //         'description' => $request->description,
+    //         'price' => $request->price,
+    //         'published' => isset($request->published),
+    //     ];
+    //   car::create($data);
         
        
-      return redirect()->route('cars1.index');
+     
     }
 
     /**
@@ -55,6 +66,7 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
+        //dd($car);
         $car = car::findorfail($id);
         return view('edit_car',compact('car'));
     }
@@ -64,16 +76,28 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data =[
-            'cartitle' => $request->title,
-            'description' => $request->description,
-            'price' => $request->price,
-            'published' => isset($request->published),
-        ];
-        car::where('id',$id)->update($data);
-        
-       
+        //task7
+        $data = $request->validate([
+            'cartitle'=> 'required|string',
+            'description'=>'required|string',
+            'price'=> 'required|decimal:1',
+        ]);
+
+        $data['published'] = isset($request->published);
+        //dd($data);
+        Car::where('id',$id)->update($data);
         return redirect()->route('cars1.index');
+
+
+        // $data =[
+        //     'cartitle' => $request->title,
+        //     'description' => $request->description,
+        //     'price' => $request->price,
+        //     'published' => isset($request->published),
+        // ];
+        // car::where('id',$id)->update($data);
+        
+        // return redirect()->route('cars1.index');
     }
 
     /**
@@ -81,19 +105,31 @@ class CarController extends Controller
      */
     public function destroy(Request $request)
     {
-        //  car::where('id',$id)->delete();
-        //return 'data deleted successfully';
-
+        
         $id = $request->id;
         Car::where('id', $id)->delete();    
         return redirect()->route('cars1.index');
   
     }
+
    public function showDeleted(){
 
     $cars = car::onlyTrashed()->get();
     return view('trashedcars',compact('cars'));
    }
 
+   public function restore(string $id){
+
+    car::where('id',$id)->restore();
+    return redirect()->route('cars1.showDeleted');
+   }
+
+   public function forceDelete(string $id)
+   {
+       
+       Car::where('id', $id)->forceDelete();    
+       return redirect()->route('cars1.index');
+ 
+   }
 
 }

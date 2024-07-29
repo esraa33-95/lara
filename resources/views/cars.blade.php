@@ -45,17 +45,16 @@
               <td>{{($car['published'] == 1) ? "yes" : "no"}}</td>
               <td><a href="{{route('cars1.edit',$car['id'])}}">edit</a></td>
               <td><a href="{{route('cars1.show',$car['id'])}}">show</a></td>
-              {{-- <td>
-                <form action="{{ route('cars1.delete') }}" method="post">
+              <td>
+                <form action="{{ route('cars1.delete', $car['id'])}}" method="post">
                   @csrf
                   @method('DELETE')
-                  <input type="hidden" name="id" value="{{ $car->id }}">
                   <input type="submit" value="delete">
                  </form>
             
-              </td> --}}
+              </td>
               
-              <td><a href="{{route('cars1.destroy',$car['id'])}}" onclick="confirm('are you sure you want to delete?')">delete</a></td>
+              {{-- <td><a href="{{route('cars1.destroy',$car['id'])}}" onclick="return confirm('are you sure you want to delete?')">delete</a></td> --}}
             </tr>
             @endforeach
           </tbody>

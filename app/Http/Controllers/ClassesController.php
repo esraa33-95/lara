@@ -31,18 +31,31 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
+        //task 7
+        $data = $request->validate([
+             'classname' => 'required|string',
+             'capacity' => 'required|numeric|min:2',
+             'price'=> 'required|decimal:1',
+             'timefrom' => 'required|date_format:H:i', 
+             'timeto' => 'required|date_format:H:i|after:timefrom',
+            
+        ]);
+        $data['isfilled'] = isset($request->isfilled);
+        //dd($data);
+        Class1 ::create($data);
+        return redirect()->route('classes.index');
+
         //task5
-        $data =[
-            'classname'=>$request->classname,
-            'capacity'=>$request->capacity,
-            'price'=>$request->price,
-            'isfilled' =>isset($request->isfilled),
-            // 'isfilled' =>($request->isfilled === 'on' )? 1 : 0,
-            'timefrom' =>$request->timefrom, 
-            'timeto' =>$request->timeto,
-        ];
-         Class1 ::create($data);
-         return redirect()->route('classes.index');
+        // $data =[
+        //     'classname'=>$request->classname,
+        //     'capacity'=>$request->capacity,
+        //     'price'=>$request->price,
+        //     'isfilled' =>isset($request->isfilled),
+        //     'timefrom' =>$request->timefrom, 
+        //     'timeto' =>$request->timeto,
+        // ];
+        //  Class1 ::create($data);
+        //  return redirect()->route('classes.index');
           
 
         //  $classname    ='swimming';
@@ -69,9 +82,10 @@ class ClassesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(class1 $class)
     {
-        $class = class1::findOrfail($id);
+        dd($class);
+        //$class = class1::findOrfail($id);
         return view('classes_details',compact('class'));
         
     }
@@ -90,18 +104,31 @@ class ClassesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data =[
-            'classname'=>$request->classname,
-            'capacity'=>$request->capacity,
-            'price'=>$request->price,
-            'isfilled' =>isset($request->isfilled),
-            // 'isfilled' =>($request->isfilled === 'on' )? 1 : 0,
-            'timefrom' =>$request->timefrom, 
-            'timeto' =>$request->timeto,
-        ];
+        //task7
+        $data = $request->validate([
+            'classname' => 'required|string',
+            'capacity' => 'required|numeric|min:2',
+            'price'=> 'required|decimal:1',
+            'timefrom' => 'required|date_format:h:i:s', 
+            'timeto' => 'required|date_format:h:i:s|after:timefrom', 
+       ]);
+       $data['isfilled'] = isset($request->isfilled);
+      // dd($data);
+       Class1::where('id',$id)->update($data);
+       return redirect()->route('classes.index');
 
-      class1::where('id',$id)->update($data);
-      return redirect()->route('classes.index');
+
+    //     $data =[
+    //         'classname'=>$request->classname,
+    //         'capacity'=>$request->capacity,
+    //         'price'=>$request->price,
+    //         'isfilled' =>isset($request->isfilled),
+    //         'timefrom' =>$request->timefrom, 
+    //         'timeto' =>$request->timeto,
+    //     ];
+
+    //   class1::where('id',$id)->update($data);
+    //   return redirect()->route('classes.index');
     }
 
     /**
@@ -118,4 +145,15 @@ class ClassesController extends Controller
         $class = class1::onlyTrashed()->get();
       return view('trashedclass',compact('class'));
     }
+    public function restore(string $id)
+    {
+        Class1::where('id',$id)->restore();
+        return redirect()->route('classes.index');
+    }
+    public function forceDelete(string $id)
+    {
+        Class1::where('id',$id)->forceDelete();
+        return redirect()->route('classes.index');
+    }
+    
 }

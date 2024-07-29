@@ -23,7 +23,7 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Cars</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Classes</h2>
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
@@ -33,9 +33,9 @@
               <th scope="col">capacity</th>
               <th scope="col">timefrom</th>
               <th scope="col">timeto</th>
-              <th scope="col">Edit</th>
-              <th scope="col">show</th>
-              <th scope="col"> delete</th>
+              <th scope="col">Restore</th>
+             
+              <th scope="col">forcedelete</th>
             </tr>
           </thead>
           <tbody>
@@ -47,14 +47,19 @@
               <td>{{$classt['capacity'] }}</td>
               <td>{{$classt['timefrom'] }}</td>
               <td>{{$classt['timeto'] }}</td>
-              <td><a href="{{route('classes.edit',$classt['id'])}}">edit</a></td>
-              <td><a href="{{route('classes.show',$classt['id'])}}">show</a></td>
               <td>
-                <form action="" method="post">
+                <form action="{{route('classes.restore', $classt->id)}}" method="post">
+                  @csrf
+                  @method('patch')
+                  <button type="submit" class="btn btn-link m-0 p-0">Restore</button>
+                 </form>
+              </td>
+              
+              <td>
+                <form action="{{route('classes.forceDelete',$classt['id'])}}" method="post">
                   @csrf
                   @method('DELETE')
-                  <input type="hidden" name="id" value="{{ $classt->id }}">
-                  <input type="submit" value="delete">
+                  <button type="submit" class="btn btn-link m-0 p-0">delete</button>
                  </form>
             
               </td>
