@@ -206,7 +206,7 @@ Route::get('cars1/{id}/edit',[CarController::class,'edit'])->name('cars1.edit');
 //update
 Route::put('cars1/{id}/update',[CarController::class,'update'])->name('cars1.update');
 //show
-Route::get('cars1/{id}/show',[CarController::class,'show'])->name('cars1.show');
+Route::get('cars1/{car}/show',[CarController::class,'show'])->name('cars1.show');
 
 //destroy delete
 //Route::get('cars1/{id}/delete',[CarController::class,'destroy'])->name('cars1.destroy');

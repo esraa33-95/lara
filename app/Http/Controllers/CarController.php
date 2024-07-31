@@ -55,10 +55,10 @@ class CarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Car $car)
     {
-        //dd($car);
-        $car = car::findOrfail($id);
+        dd($car);
+        //$car = car::findOrfail($id);
         return view('cars_details',compact('car'));
     }
 
@@ -67,7 +67,7 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        //dd($car);
+      
         $car = car::findorfail($id);
         return view('edit_car',compact('car'));
     }
@@ -77,6 +77,7 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         //task7
         $data = $request->validate([
             'cartitle'=> 'required|string',
