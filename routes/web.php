@@ -246,6 +246,8 @@ Route::delete('delete',[ClassesController::class,'destroy'])->name('classes.dest
 //trashed
 Route::get('trashed',[ClassesController::class,'showDeleted'])->name('classes.showDeleted');
 //task7
+
+
 //restore
 Route::patch('{id}/restore',[ClassesController::class,'restore'])->name('classes.restore');
 //forcedelete
