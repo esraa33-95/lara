@@ -109,8 +109,8 @@ class ClassesController extends Controller
             'classname' => 'required|string',
             'capacity' => 'required|numeric|min:2',
             'price'=> 'required|decimal:1',
-            'timefrom' => 'required|date_format:h:i:s', 
-            'timeto' => 'required|date_format:h:i:s|after:timefrom', 
+            'timefrom' => 'required|date_format:H:i:s', 
+            'timeto' => 'required|date_format:H:i:s|after:timefrom',
        ]);
        $data['isfilled'] = isset($request->isfilled);
       // dd($data);
