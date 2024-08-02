@@ -31,7 +31,7 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //task 7,8
+        //task 8
         $data = $request->validate([
              'classname' => 'required|string',
              'capacity' => 'required|numeric|min:2',
