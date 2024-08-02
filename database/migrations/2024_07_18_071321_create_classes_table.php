@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('timefrom');
             $table->time('timeto');
             $table->softDeletes();
+            $table->string('image');
             $table->timestamps();
         });
     }

@@ -24,31 +24,43 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Add Class</h2>
-        <form action="{{route('classes.store')}}" method="post" class="px-md-5">
+        <form action="{{route('classes.store')}}" method="post" class="px-md-5" enctype="multipart/form-data">
           @csrf
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Class name:</label>
             <div class="col-md-10">
-              <input type="text" placeholder="" class="form-control py-2" name="classname" />
+              <input type="text" placeholder="" class="form-control py-2" name="classname" value="{{old('classname')}}" />
+              @error('classname')
+                  <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Capacity:</label>
             <div class="col-md-10">
-              <input type="number" step="0.1" placeholder="" class="form-control py-2" name="capacity" />
+              <input type="number" step="0.1" placeholder="" class="form-control py-2" name="capacity" value="{{old('capacity')}}"/>
+              @error('capacity')
+                  <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">price:</label>
             <div class="col-md-10">
-              <input type="number" name="price" step="0.1" cols="30" rows="5" class="form-control py-2"/>
+              <input type="number" name="price" step="0.1" cols="30" rows="5" class="form-control py-2" value="{{old('price')}}"/>
+              @error('price')
+                  <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <hr>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Is filled:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="isfilled" />
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="isfilled"@checked(old('isfilled')) />
+              @error('isfilled')
+                  <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
 
@@ -56,7 +68,10 @@
           <div class="time" style="margin-left: 100px">
             <label >Time from:</label>
             
-              <input type="time"  name="timefrom" />
+              <input type="time"  name="timefrom" value="{{old('timefrom')}}" />
+              @error('timefrom')
+                  <div class="alert alert-warning">{{$message}}</div>
+              @enderror
            
           </div>
 
@@ -64,9 +79,23 @@
           <div class="time" style="margin-left: 100px">
             <label >Time to:</label>
             
-              <input type="time"  name="timeto" />
+              <input type="time"  name="timeto" value="{{old('timeto')}}"/>
+              @error('timeto')
+                  <div class="alert alert-warning">{{$message}}</div>
+              @enderror
            
           </div>
+<hr>
+          <div class="form-group" style="margin-left: 100px;">
+            <label class="control-label col-sm-2" for="image">image:</label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control" id="image"  name="image">
+              @error('image')
+                 <div class="alert alert-warning">{{$message}}</div> 
+              @enderror
+            </div>
+          </div>
+           
 
           <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">

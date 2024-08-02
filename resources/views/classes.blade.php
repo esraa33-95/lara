@@ -36,6 +36,7 @@
               <th scope="col">Edit</th>
               <th scope="col">show</th>
               <th scope="col">delete</th>
+              <th scope="col">image</th>
             </tr>
           </thead>
           <tbody>
@@ -57,6 +58,10 @@
                   <input type="submit" value="delete">
                  </form>
             
+              </td>
+              
+              <td>
+                <img src="{{asset('assets/images'.'/'.$class->image)}}" style="height:50px; width:50px;"/>
               </td>
             </tr>
             @endforeach

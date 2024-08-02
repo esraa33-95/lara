@@ -222,6 +222,10 @@ Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.
 
 //forcedelete
  Route::delete('cars/{id}/force',[CarController::class,'forceDelete'])->name('cars1.forceDelete');
+
+ //upload
+ Route::get('cars/upload',[CarController::class,'uploadForm']);
+ Route::post('cars/uploadform',[CarController::class,'upload'])->name('upload');
 // });
 
 
@@ -240,19 +244,19 @@ Route::get('{id}/edit',[ClassesController::class,'edit'])->name('classes.edit');
 //update
 Route::put('{id}/update',[ClassesController::class,'update'])->name('classes.update');
 //show
-Route::get('{class}/show',[ClassesController::class,'show'])->name('classes.show');
+Route::get('{id}/show',[ClassesController::class,'show'])->name('classes.show');
 //request delete
 Route::delete('delete',[ClassesController::class,'destroy'])->name('classes.destroy');
 //trashed
 Route::get('trashed',[ClassesController::class,'showDeleted'])->name('classes.showDeleted');
 //task7
-
-
 //restore
 Route::patch('{id}/restore',[ClassesController::class,'restore'])->name('classes.restore');
 //forcedelete
 Route::delete('{id}/forcedelete',[ClassesController::class,'forceDelete'])->name('classes.forceDelete');
-
+//upload image
+Route::get('uploadform',[ClassesController::class,'uploadForm']);
+Route::post('upload',[ClassesController::class,'upload'])->name('upload');
  });
 
 

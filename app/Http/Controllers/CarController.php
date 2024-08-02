@@ -29,16 +29,38 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
+        //image valide
         $data = $request->validate([
             'cartitle'=> 'required|string',
             'description'=> 'required|string',
             'price'=> 'required|decimal:1',
-        ]);
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+          ]);
+          
+          $file_extension = $request->image->getClientOriginalExtension();
+          $file_name = time() . '.' . $file_extension;
+          $path = 'assets/images';
+          $request->image->move($path, $file_name);
+           $data['image']= $file_name;
 
-        $data['published'] = isset($request->published);
+          $data['published'] = isset($request->published);    
+           Car::create($data);     
+           return 'Created successfully';
+
+      
+        // $data = $request->validate([
+        //     'cartitle'=> 'required|string',
+        //     'description'=> 'required|string',
+        //     'price'=> 'required|decimal:1',
+            
+        // ]);
+       
+       
+        // $data['published'] = isset($request->published);
         //dd($data);
-        car::create($data);
-        return redirect()->route('cars1.index');
+        // car::create($data);
+        // return redirect()->route('cars1.index');
+
 
     //     $data =[
     //         'cartitle' => $request->title,
@@ -57,7 +79,7 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        //dd($car);
+       // dd($car);
         $car = car::findOrfail($id);
         return view('cars_details',compact('car'));
     }
@@ -67,7 +89,7 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        //dd($car);
+      
         $car = car::findorfail($id);
         return view('edit_car',compact('car'));
     }
@@ -77,6 +99,7 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         //task7
         $data = $request->validate([
             'cartitle'=> 'required|string',
@@ -132,5 +155,16 @@ class CarController extends Controller
        return redirect()->route('cars1.index');
  
    }
+   public function uploadForm(){
+    return view('form1');
+   }
+
+   public function upload(Request $request){
+    $file_extension = $request->image->getClientOriginalExtension();
+    $file_name = time() . '.' . $file_extension;
+    $path = 'assets/images';
+    $request->image->move($path, $file_name);
+    return 'Uploaded';
+}
 
 }
