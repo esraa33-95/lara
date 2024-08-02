@@ -31,15 +31,23 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //task 7
+        //task 7,8
         $data = $request->validate([
              'classname' => 'required|string',
              'capacity' => 'required|numeric|min:2',
              'price'=> 'required|decimal:1',
              'timefrom' => 'required|date_format:H:i', 
              'timeto' => 'required|date_format:H:i|after:timefrom',
+             'image'=>'required|mimes:png,jpg,jpeg|max:2048',
             
         ]);
+          $file_extension = $request->image->getClientOriginalExtension();
+          $file_name = time() . '.' . $file_extension;
+          $path = 'assets/images';
+          $request->image->move($path, $file_name);
+          //store imagename in db
+          $data['image']= $file_name;
+
         $data['isfilled'] = isset($request->isfilled);
         //dd($data);
         Class1 ::create($data);
@@ -82,10 +90,10 @@ class ClassesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(class1 $class)
+    public function show(string $id)
     {
-        dd($class);
-        //$class = class1::findOrfail($id);
+       // dd($class);
+        $class = class1::findOrfail($id);
         return view('classes_details',compact('class'));
         
     }
@@ -104,20 +112,22 @@ class ClassesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //task7
+        //task 8
         $data = $request->validate([
             'classname' => 'required|string',
             'capacity' => 'required|numeric|min:2',
             'price'=> 'required|decimal:1',
             'timefrom' => 'required|date_format:H:i:s', 
             'timeto' => 'required|date_format:H:i:s|after:timefrom',
+
        ]);
+       
        $data['isfilled'] = isset($request->isfilled);
       // dd($data);
        Class1::where('id',$id)->update($data);
        return redirect()->route('classes.index');
 
-
+      //task 7
     //     $data =[
     //         'classname'=>$request->classname,
     //         'capacity'=>$request->capacity,
@@ -154,6 +164,19 @@ class ClassesController extends Controller
     {
         Class1::where('id',$id)->forceDelete();
         return redirect()->route('classes.index');
+    }
+
+    public function uploadForm(){
+        return view('formclass');
+    }
+
+    public function upload(Request $request){
+
+    $file_extension = $request->image->getClientOriginalExtension();
+    $file_name = time() . '.' . $file_extension;
+    $path = 'assets/images';
+    $request->image->move($path, $file_name);
+    return 'Uploaded';
     }
     
 }

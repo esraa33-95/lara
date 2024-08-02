@@ -34,6 +34,7 @@
               <th scope="col">Edit</th>
               <th scope="col">show</th>
               <th scope="col">delete</th>
+              <th scope="col">image</th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +53,9 @@
                   <input type="submit" value="delete">
                  </form>
             
+              </td>
+              <td>
+                <img src="{{asset('assets/images'.'/'.$car->image)}}" style="height: 100px; width:100px;" />
               </td>
               
               {{-- <td><a href="{{route('cars1.destroy',$car['id'])}}" onclick="return confirm('are you sure you want to delete?')">delete</a></td> --}}
