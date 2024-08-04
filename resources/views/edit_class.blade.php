@@ -24,7 +24,7 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">edit Class</h2>
-        <form action="{{route('classes.update',$class->id)}}" method="post" class="px-md-5">
+        <form action="{{route('classes.update',$class->id)}}" method="post" class="px-md-5" enctype="multipart/form-data">
           @csrf
           @method('put')
           <div class="form-group mb-3 row">
@@ -88,13 +88,13 @@
           </div>
           
 <hr>
-          {{-- <div class="form-group" style="margin-left: 100px;">
+          <div class="form-group" style="margin-left: 100px;">
             <label class="control-label col-sm-2" for="image">image:</label>
             <div class="col-sm-10">
-              <input type="file" class="form-control" id="image"  name="image" value="{{old('image',$class->image)}}">
+              <input type="file" class="form-control" id="image"  name="image" value="{{old('image')}}">
               
             </div>
-          </div> --}}
+          </div>
 
           <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
