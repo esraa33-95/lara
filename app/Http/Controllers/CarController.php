@@ -100,7 +100,7 @@ class CarController extends Controller
     public function update(Request $request, string $id)
     {
 
-        //task7
+        //task8
         $data = $request->validate([
             'cartitle'=> 'required|string',
             'description'=>'required|string',
