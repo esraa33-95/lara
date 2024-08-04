@@ -45,7 +45,7 @@ class CarController extends Controller
 
           $data['published'] = isset($request->published);    
            Car::create($data);     
-           return 'Created successfully';
+           return redirect()->route('cars1.index');
 
       
         // $data = $request->validate([
@@ -105,7 +105,13 @@ class CarController extends Controller
             'cartitle'=> 'required|string',
             'description'=>'required|string',
             'price'=> 'required|decimal:1',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         ]);
+          $file_extension = $request->image->getClientOriginalExtension();
+          $file_name = time() . '.' . $file_extension;
+          $path = 'assets/images';
+          $request->image->move($path, $file_name);
+           $data['image']= $file_name;
 
         $data['published'] = isset($request->published);
         //dd($data);

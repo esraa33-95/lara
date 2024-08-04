@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\class1;
+use Illuminate\Validation\Rule;
 
  
 class ClassesController extends Controller
@@ -31,7 +32,7 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //task 7,8
+        //task 8
         $data = $request->validate([
              'classname' => 'required|string',
              'capacity' => 'required|numeric|min:2',
@@ -119,11 +120,17 @@ class ClassesController extends Controller
             'price'=> 'required|decimal:1',
             'timefrom' => 'required|date_format:H:i:s', 
             'timeto' => 'required|date_format:H:i:s|after:timefrom',
-
-       ]);
+           'image'=>'required|mimes:png,jpg,jpeg|max:2048',
+        ]);  
+        $data['isfilled'] = isset($request->isfilled);
+        
+        $file_extension = $request->image->getClientOriginalExtension();
+        $file_name = time() . '.' . $file_extension;
+        $path = 'assets/images';
+        $request->image->move($path, $file_name);
+        $data['image'] = $file_name;  
+    
        
-       $data['isfilled'] = isset($request->isfilled);
-      // dd($data);
        Class1::where('id',$id)->update($data);
        return redirect()->route('classes.index');
 
@@ -139,7 +146,7 @@ class ClassesController extends Controller
 
     //   class1::where('id',$id)->update($data);
     //   return redirect()->route('classes.index');
-    }
+}
 
     /**
      * Remove the specified resource from storage.

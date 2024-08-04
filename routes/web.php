@@ -229,8 +229,6 @@ Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.
 // });
 
 
-
-
 //task4
 //create
 Route::prefix('classes')->group(function(){
