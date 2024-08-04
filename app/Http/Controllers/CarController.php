@@ -105,14 +105,24 @@ class CarController extends Controller
             'cartitle'=> 'required|string',
             'description'=>'required|string',
             'price'=> 'required|decimal:1',
-            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
         ]);
+        if ($request->hasFile('image')){
+            if($request->file != ''){        
+                $path = public_path().'/assets/images/';
+      
+                if($car->file != ''  && $car->file != null){
+                     $file_old = $path.$car->file;
+                     unlink($file_old);
+                
+            }
           $file_extension = $request->image->getClientOriginalExtension();
           $file_name = time() . '.' . $file_extension;
           $path = 'assets/images';
           $request->image->move($path, $file_name);
            $data['image']= $file_name;
-
+        }
+    }
         $data['published'] = isset($request->published);
         //dd($data);
         Car::where('id',$id)->update($data);
