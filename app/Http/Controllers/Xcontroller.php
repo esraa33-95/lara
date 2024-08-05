@@ -14,5 +14,9 @@ class XController extends Controller
     
     return 'name : '.$name .' <br>'.'email: '.$email .'<br>'.'subject : '.$subject .'<br>'.'message: '.$message;
     }
+    
+    public function index(){
+        return view('index');
+    }
 }
 

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\class1;
 use Illuminate\Validation\Rule;
-
+use App\Traits\Common;
  
 class ClassesController extends Controller
 {
-   
+   use Common;
     /**
      * Display a listing of the resource.
      */
@@ -37,19 +37,16 @@ class ClassesController extends Controller
              'classname' => 'required|string',
              'capacity' => 'required|numeric|min:2',
              'price'=> 'required|decimal:1',
+             'isfilled'=>'boolean',
              'timefrom' => 'required|date_format:H:i', 
              'timeto' => 'required|date_format:H:i|after:timefrom',
              'image'=>'required|mimes:png,jpg,jpeg|max:2048',
             
         ]);
-          $file_extension = $request->image->getClientOriginalExtension();
-          $file_name = time() . '.' . $file_extension;
-          $path = 'assets/images';
-          $request->image->move($path, $file_name);
-          //store imagename in db
-          $data['image']= $file_name;
+        if($request->hasFile('image')){
+            $data['image'] = $this->uploadFile($request->image,'assets/images');
+            }
 
-        $data['isfilled'] = isset($request->isfilled);
         //dd($data);
         Class1 ::create($data);
         return redirect()->route('classes.index');
@@ -118,19 +115,16 @@ class ClassesController extends Controller
             'classname' => 'required|string',
             'capacity' => 'required|numeric|min:2',
             'price'=> 'required|decimal:1',
+            'isfilled'=>'boolean',
             'timefrom' => 'required|date_format:H:i:s', 
             'timeto' => 'required|date_format:H:i:s|after:timefrom',
-           'image'=>'required|mimes:png,jpg,jpeg|max:2048',
+           'image'=>'sometimes|mimes:png,jpg,jpeg|max:2048',
         ]);  
-        $data['isfilled'] = isset($request->isfilled);
         
-        $file_extension = $request->image->getClientOriginalExtension();
-        $file_name = time() . '.' . $file_extension;
-        $path = 'assets/images';
-        $request->image->move($path, $file_name);
-        $data['image'] = $file_name;  
+        if($request->hasFile('image')){
+            $data['image'] = $this->uploadFile($request->image,'assets/images');
+            } 
     
-       
        Class1::where('id',$id)->update($data);
        return redirect()->route('classes.index');
 
