@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Car;
+use App\Traits\Common;
+
 class CarController extends Controller
 {
+    use Common;   
     /**
      * Display a listing of the resource.
      */
@@ -32,18 +35,17 @@ class CarController extends Controller
         //image valide
         $data = $request->validate([
             'cartitle'=> 'required|string',
-            'description'=> 'required|string',
-            'price'=> 'required|decimal:1',
-            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'description'=>'required|string',
+            'price'=>'required|decimal:1',
+            'published'=>'boolean',
+            'image' =>'required|mimes:png,jpg,jpeg|max:2048',
           ]);
-          
-          $file_extension = $request->image->getClientOriginalExtension();
-          $file_name = time() . '.' . $file_extension;
-          $path = 'assets/images';
-          $request->image->move($path, $file_name);
-           $data['image']= $file_name;
 
-          $data['published'] = isset($request->published);    
+          if($request->hasFile('image')){
+
+          $data['image'] = $this->uploadFile($request->image,'assets/images');
+
+          }   
            Car::create($data);     
            return redirect()->route('cars1.index');
 
@@ -105,25 +107,16 @@ class CarController extends Controller
             'cartitle'=> 'required|string',
             'description'=>'required|string',
             'price'=> 'required|decimal:1',
-            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'published'=>'boolean',
+            'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
         ]);
-        if ($request->hasFile('image')){
-            if($request->file != ''){        
-                $path = public_path().'/assets/images/';
-      
-                if($car->file != ''  && $car->file != null){
-                     $file_old = $path.$car->file;
-                     unlink($file_old);
-                
+
+        if($request->hasFile('image')){
+
+            $data['image'] = $this->uploadFile($request->image,'assets/images');
             }
-          $file_extension = $request->image->getClientOriginalExtension();
-          $file_name = time() . '.' . $file_extension;
-          $path = 'assets/images';
-          $request->image->move($path, $file_name);
-           $data['image']= $file_name;
-        }
-    }
-        $data['published'] = isset($request->published);
+        
+        
         //dd($data);
         Car::where('id',$id)->update($data);
         return redirect()->route('cars1.index');

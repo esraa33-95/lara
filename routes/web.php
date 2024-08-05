@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Xcontroller;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassesController;
-use App\Http\Controllers\CatsController;
+use App\Http\Controllers\ProductsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -196,7 +196,8 @@ Route::post('s',function(){
 
 
 
-// Route::prefix('cars')->group (function(){
+//car project
+//create
 Route::get('cars/create',[CarController::class,'create'])->name('cars.create');
 Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
 //index
@@ -228,36 +229,57 @@ Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.
  Route::post('cars/uploadform',[CarController::class,'upload'])->name('upload');
 // });
 
-
-//task4
+//classes project
+//Route::prefix('classes')->controller(ClassesController::class)->as('classes.')->group(function(){
+Route::group([
+'controller'=>ClassesController::class,
+'prefix'=>'classes',
+'as'=>'classes.',
+],function(){
 //create
-Route::prefix('classes')->group(function(){
-Route::get('create',[ClassesController::class,'create'])->name('classes.create');
+Route::get('create','create')->name('create');
 //store
-Route::post('store',[ClassesController::class,'store'])->name('classes.store');
+Route::post('store','store')->name('store');
 //index
-Route::get('',[ClassesController::class,'index'])->name('classes.index');
+Route::get('','index')->name('index');
 //edit
-Route::get('{id}/edit',[ClassesController::class,'edit'])->name('classes.edit');
+Route::get('{id}/edit','edit')->name('edit');
 //update
-Route::put('{id}/update',[ClassesController::class,'update'])->name('classes.update');
+Route::put('{id}/update','update')->name('update');
 //show
-Route::get('{id}/show',[ClassesController::class,'show'])->name('classes.show');
+Route::get('{id}/show','show')->name('show');
 //request delete
-Route::delete('delete',[ClassesController::class,'destroy'])->name('classes.destroy');
+Route::delete('delete','destroy')->name('destroy');
 //trashed
-Route::get('trashed',[ClassesController::class,'showDeleted'])->name('classes.showDeleted');
+Route::get('trashed','showDeleted')->name('showDeleted');
 //task7
 //restore
-Route::patch('{id}/restore',[ClassesController::class,'restore'])->name('classes.restore');
+Route::patch('{id}/restore','restore')->name('restore');
 //forcedelete
-Route::delete('{id}/forcedelete',[ClassesController::class,'forceDelete'])->name('classes.forceDelete');
+Route::delete('{id}/forcedelete','forceDelete')->name('forceDelete');
 //upload image
-Route::get('uploadform',[ClassesController::class,'uploadForm']);
-Route::post('upload',[ClassesController::class,'upload'])->name('upload');
- });
+Route::get('uploadform','uploadForm');
+Route::post('upload','upload')->name('upload');
+
+});
+
 
 
 //resource
 //Route::resource('classes', ClassesController::class);
+//example 
+Route::get('index',[XController::class,'index']);
 
+
+
+//task9(products project)
+
+Route::group([
+    'controller'=>ProductsController::class,
+    'as'=>'products.',
+    'prefix'=>'product',
+],function(){
+Route::get('create','create')->name('create');
+Route::post('store','store')->name('store');
+Route::get('index','index')->name('index');
+});
