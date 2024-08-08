@@ -5,7 +5,7 @@ use App\Http\Controllers\Xcontroller;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ProductsController;
-
+use App\Http\Controllers\PublicController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -282,4 +282,17 @@ Route::group([
 Route::get('create','create')->name('create');
 Route::post('store','store')->name('store');
 Route::get('index','index')->name('index');
+Route::get('{id}/edit','edit')->name('edit');
+Route::put('{id}/update','update')->name('update');
+
+});
+
+//task10
+Route::group([
+    'prefix'=>'fashion',
+    'controller'=>PublicController::class,
+     'as'=>'fashion.'
+],function(){
+Route::get('index','index')->name('index');
+Route::get('about','about')->name('about');
 });
