@@ -15,6 +15,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        //task9
         $products = Product::latest()->take(3)->get();
         return view('index',compact('products'));
     }
