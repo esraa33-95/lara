@@ -42,7 +42,8 @@ class CarController extends Controller
             'price'=>'required|decimal:1',
             'published'=>'boolean',
             'image' =>'required|mimes:png,jpg,jpeg|max:2048',
-            'category_id'=>'required|integer',
+            'category_id'=>'required|integer|exists:categories,id',
+            
           ]);
 
           if($request->hasFile('image')){
@@ -113,8 +114,9 @@ class CarController extends Controller
             'description'=>'required|string',
             'price'=> 'required|numeric',
             'published'=>'boolean',
-            'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
-            'category_id'=>'required|integer',
+            'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',  
+            'category_id'=>'required|integer|exists:categories,id',
+            
         ]);
 
         if($request->hasFile('image')){
@@ -122,10 +124,10 @@ class CarController extends Controller
             $data['image'] = $this->uploadFile($request->image,'assets/images/cars');
             }
         
-        $car->category_id = $request->category_id;
-        $car->update($data);
+        
+         $car->update($data);
         //dd($data);
-       // Car::where('id',$id)->update($data);
+        //Car::where('id',$id)->update($data);
         return redirect()->route('cars1.index');
 
 

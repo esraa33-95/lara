@@ -70,7 +70,7 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Category name:</label>
             <div class="col-md-10">
-              <select name="category" id="" class="form-control">
+              <select name="category_id" id="" class="form-control">
                 <option value="">Select Categoryname</option>
                 
                 @foreach ($categries as $category)
@@ -78,11 +78,12 @@
                 <option value="{{$category->id}}">{{$category->category_name}}</option>
                 @endforeach
               </select>
-              @error('category')
+              @error('category_name')
                 <div class="alert alert-warning">{{$message}}</div>
               @enderror
             </div>
           </div>
+         
 
           
 
