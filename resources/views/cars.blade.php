@@ -55,7 +55,7 @@
             
               </td>
               <td>
-                <img src="{{asset('assets/images'.'/'.$car->image)}}" style="height: 50px; width:50px;" />
+                <img src="{{asset('assets/images/cars'.'/'.$car->image)}}" style="height: 50px; width:50px;" />
               </td>
               
               {{-- <td><a href="{{route('cars1.destroy',$car['id'])}}" onclick="return confirm('are you sure you want to delete?')">delete</a></td> --}}

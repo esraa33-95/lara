@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Car;
+use App\Models\Category;
 use App\Traits\Common;
+
 
 class CarController extends Controller
 {
@@ -24,7 +26,8 @@ class CarController extends Controller
      */
     public function create()
     {
-        return view('add_car');
+        $categries = Category::select('id','category_name')->get();
+        return view('add_car', compact('categries'));
     }
 
     /**
@@ -39,11 +42,12 @@ class CarController extends Controller
             'price'=>'required|decimal:1',
             'published'=>'boolean',
             'image' =>'required|mimes:png,jpg,jpeg|max:2048',
+            'category_id'=>'required|integer',
           ]);
 
           if($request->hasFile('image')){
 
-          $data['image'] = $this->uploadFile($request->image,'assets/images');
+          $data['image'] = $this->uploadFile($request->image,'assets/images/cars');
 
           }   
            Car::create($data);     
@@ -89,36 +93,39 @@ class CarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Car $car)
     {
-      
-        $car = car::findorfail($id);
-        return view('edit_car',compact('car'));
+      //task11
+        //$car = car::findorfail($id);
+        $categories = Category::all();
+        return view('edit_car',compact('car','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,Car $car)
     {
 
-        //task8
+        //task11
         $data = $request->validate([
             'cartitle'=> 'required|string',
             'description'=>'required|string',
-            'price'=> 'required|decimal:1',
+            'price'=> 'required|numeric',
             'published'=>'boolean',
             'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
+            'category_id'=>'required|integer',
         ]);
 
         if($request->hasFile('image')){
 
-            $data['image'] = $this->uploadFile($request->image,'assets/images');
+            $data['image'] = $this->uploadFile($request->image,'assets/images/cars');
             }
         
-        
+        $car->category_id = $request->category_id;
+        $car->update($data);
         //dd($data);
-        Car::where('id',$id)->update($data);
+       // Car::where('id',$id)->update($data);
         return redirect()->route('cars1.index');
 
 

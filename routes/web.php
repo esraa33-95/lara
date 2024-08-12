@@ -203,9 +203,10 @@ Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
 //index
 Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
 //edit
-Route::get('cars1/{id}/edit',[CarController::class,'edit'])->name('cars1.edit');
+Route::get('cars1/{car}/edit',[CarController::class,'edit'])->name('cars1.edit');
 //update
-Route::put('cars1/{id}/update',[CarController::class,'update'])->name('cars1.update');
+Route::put('cars1/{car}/update',[CarController::class,'update'])->name('cars1.update');
+
 //show
 Route::get('cars1/{id}/show',[CarController::class,'show'])->name('cars1.show');
 
@@ -227,6 +228,9 @@ Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.
  //upload
  Route::get('cars/upload',[CarController::class,'uploadForm']);
  Route::post('cars/uploadform',[CarController::class,'upload'])->name('upload');
+
+ 
+
 // });
 
 //classes project
@@ -295,4 +299,5 @@ Route::group([
 ],function(){
 Route::get('index','index')->name('index');
 Route::get('about','about')->name('about');
+Route::get('testone','test')->name('test');
 });
