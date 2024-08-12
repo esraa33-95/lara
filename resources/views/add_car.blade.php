@@ -66,6 +66,7 @@
               @enderror
             </div>
           </div>
+          <hr>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Category name:</label>
             <div class="col-md-10">
@@ -82,23 +83,8 @@
               @enderror
             </div>
           </div>
-<hr>
-          <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category_id:</label>
-            <div class="col-md-10">
-              <select name="category_id" id="" class="form-control">
-                <option value="">Select Categoryid</option>
-                
-                @foreach ($categries as $category)
-                    
-                <option value="{{$category->id}}">{{$category->id}}</option>
-                @endforeach
-              </select>
-              @error('category_id')
-                <div class="alert alert-warning">{{$message}}</div>
-              @enderror
-            </div>
-          </div>
+
+          
 
 
         <hr>

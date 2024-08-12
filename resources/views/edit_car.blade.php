@@ -66,26 +66,26 @@
               @enderror
             </div>
           </div>
-          
-          
           <hr>
           <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category_id:</label>
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category name:</label>
             <div class="col-md-10">
-              <select name="category_id" id="" class="form-control">
-                <option value="">Select Categoryid</option>
+              <select name="category" id="" class="form-control">
+                <option value="">Select Categoryname</option>
+                
                 @foreach ($categories as $category)
-
-                <option value="{{$category->id}}" @selected($car->category_id == $category->id)>{{$category->id}}</option> 
-               @endforeach 
-    
-        
+                    
+                <option value="{{$category->id}}"@selected($car->category_id == $category->id)>{{$category->category_name}}</option>
+                @endforeach
               </select>
-              @error('category_id')
+              @error('category')
                 <div class="alert alert-warning">{{$message}}</div>
               @enderror
             </div>
           </div>
+          
+          <hr>
+          
           
 
 
