@@ -88,6 +88,7 @@ class CarController extends Controller
     {
        // dd($car);
         $car = car::findOrfail($id);
+        
         return view('cars_details',compact('car'));
     }
 
@@ -97,7 +98,7 @@ class CarController extends Controller
     public function edit(Car $car)
     {
       //task11
-        //$car = car::findorfail($id);
+       // $car = car::findorfail($id);
         $categories = Category::all();
         return view('edit_car',compact('car','categories'));
     }
@@ -124,10 +125,10 @@ class CarController extends Controller
             $data['image'] = $this->uploadFile($request->image,'assets/images/cars');
             }
         
-        
+         
          $car->update($data);
         //dd($data);
-        //Car::where('id',$id)->update($data);
+       // Car::where('id',$id)->update($data);
         return redirect()->route('cars1.index');
 
 
