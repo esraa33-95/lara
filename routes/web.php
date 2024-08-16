@@ -6,6 +6,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\ContactController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -206,6 +207,7 @@ Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
 Route::get('cars1/{id}/edit',[CarController::class,'edit'])->name('cars1.edit');
 //update
 Route::put('cars1/{id}/update',[CarController::class,'update'])->name('cars1.update');
+
 //show
 Route::get('cars1/{id}/show',[CarController::class,'show'])->name('cars1.show');
 
@@ -227,6 +229,9 @@ Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.
  //upload
  Route::get('cars/upload',[CarController::class,'uploadForm']);
  Route::post('cars/uploadform',[CarController::class,'upload'])->name('upload');
+
+ 
+
 // });
 
 //classes project
@@ -293,6 +298,29 @@ Route::group([
     'controller'=>PublicController::class,
      'as'=>'fashion.'
 ],function(){
-Route::get('index','index')->name('index');
+Route::get('index','index')->name('index')->middleware('verified');
 Route::get('about','about')->name('about');
+Route::get('testone','test')->name('test');
 });
+
+//traversal path
+Route::get('/download', function (Illuminate\Http\Request $request) {
+    $file = $request->input('file');
+    $path = public_path('assets/images/' . $file);
+    if (file_exists($path)) {
+        return response()->download($path);
+    } else {
+        abort(404, 'File not found');
+    }
+});
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//authentication
+Auth::Routes(['verify' => true]);
+
+
+
+//mail
+Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('contact', [ContactController::class, 'send'])->name('contact.send');

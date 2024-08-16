@@ -26,7 +26,7 @@
         <div class="card bg-light border-0">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 col-10 position-relative overflow-hidden">
-              <img src="{{asset('assets/images'.'/'.$car->image)}}"
+              <img src="{{asset('assets/images/cars'.'/'.$car->image)}}"
                 alt="" class="card-img"
                 style="position: absolute; margin: auto; top: 50%; transform: translateY(-50%); width: 50%;height: 50%; object-fit: cover;" />
             </div>
@@ -49,6 +49,13 @@
                   <span class="fw-bold">Description:</span>{{Str::limit($car->description,7,'...')}}
                 </p>
               </div>
+
+              <div class="mb-4">
+                <p class="card-text">
+                  <span class="fw-bold">category name:</span>{{$car->category->category_name}}
+                </p>
+              </div>
+              
               <div class="text-md-end">
                 <a href="{{route('cars1.index')}}" class="btn mt-4 btn-primary text-white fs-5 fw-bold border-0 py-2 px-md-5">
                   Back to All cars

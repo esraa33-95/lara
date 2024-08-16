@@ -23,7 +23,7 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">Add Car</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">edit Car</h2>
         <form action="{{route('cars1.update',$car->id)}}" method="post" class="px-md-5" enctype="multipart/form-data">
           @csrf
           @method('put')
@@ -66,6 +66,34 @@
               @enderror
             </div>
           </div>
+          <hr>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category name:</label>
+            <div class="col-md-10">
+              <select name="category_id" id="" class="form-control">
+                <option value="">Select Categoryname</option>
+                
+                @foreach ($categories as $category)
+                    
+                <option value="{{$category->id}}" @selected(old('category_id',$car->category_id) == $category->id)>{{$category->category_name}}</option>
+                @endforeach
+              </select>
+              @error('category_name')
+                <div class="alert alert-warning">{{$message}}</div>
+              @enderror
+            </div>
+          </div>
+          
+          <hr>
+          
+          
+
+
+
+
+
+
+
           <div class="form-group">
             <label class="control-label col-sm-2" for="image">image:</label>
             <div class="col-sm-10">
