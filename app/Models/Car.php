@@ -18,7 +18,7 @@ class Car extends Model
         'category_id',
     ];
     public function category(){
-        return $this->hasMany(category::class);
+        return $this->belongsTo(category::class);
 
     }
 }

@@ -35,6 +35,7 @@
               <th scope="col">show</th>
               <th scope="col">delete</th>
               <th scope="col">image</th>
+              <th scope="col">category</th>
             </tr>
           </thead>
           <tbody>
@@ -57,6 +58,8 @@
               <td>
                 <img src="{{asset('assets/images/cars'.'/'.$car->image)}}" style="height: 50px; width:50px;" />
               </td>
+            
+              <td>{{$car->category->category_name}}</td>
               
               {{-- <td><a href="{{route('cars1.destroy',$car['id'])}}" onclick="return confirm('are you sure you want to delete?')">delete</a></td> --}}
             </tr>

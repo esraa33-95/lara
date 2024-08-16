@@ -17,7 +17,8 @@ class CarController extends Controller
      */
     public function index()
     {
-       $cars = car::get();
+       $cars = car::with('Category')->get();
+      
        return view('cars',compact('cars'));
     }
 
@@ -76,9 +77,7 @@ class CarController extends Controller
     //         'published' => isset($request->published),
     //     ];
     //   car::create($data);
-        
-       
-     
+           
     }
 
     /**
@@ -86,27 +85,26 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-       // dd($car);
-        $car = car::findOrfail($id);
-        
+        //$car = car::findOrfail($id);
+        $car = Car::with('category')->findOrFail($id);
         return view('cars_details',compact('car'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Car $car)
+    public function edit(string $id)
     {
       //task11
-       // $car = car::findorfail($id);
-        $categories = Category::all();
+       $car = car::findorfail($id);
+       $categories = Category::select('id','category_name')->get();
         return view('edit_car',compact('car','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,Car $car)
+    public function update(Request $request,string $id)
     {
 
         //task11
@@ -125,10 +123,8 @@ class CarController extends Controller
             $data['image'] = $this->uploadFile($request->image,'assets/images/cars');
             }
         
-         
-         $car->update($data);
         //dd($data);
-       // Car::where('id',$id)->update($data);
+        Car::where('id',$id)->update($data);
         return redirect()->route('cars1.index');
 
 
