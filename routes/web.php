@@ -321,6 +321,6 @@ Auth::Routes(['verify' => true]);
 
 
 
-//mail
+//task12
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('contact', [ContactController::class, 'send'])->name('contact.send');
