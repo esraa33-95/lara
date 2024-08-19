@@ -12,6 +12,7 @@ class ContactController extends Controller
     public function index(){
         return view('contactus');
     }
+
     public function send(Request $request){
 
         $data = $request->validate([
@@ -22,5 +23,6 @@ class ContactController extends Controller
             'message'=>'required|string|max:255',
         ]);
      Mail::to('esraahedia39@gmail.com')->send(new ContactUs($data));
+     return "send successfully";
     }
 }

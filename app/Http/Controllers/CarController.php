@@ -85,7 +85,6 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        //$car = car::findOrfail($id);
         $car = Car::with('category')->findOrFail($id);
         return view('cars_details',compact('car'));
     }
@@ -144,7 +143,6 @@ class CarController extends Controller
      */
     public function destroy(Request $request)
     {
-        
         $id = $request->id;
         Car::where('id', $id)->delete();    
         return redirect()->route('cars1.index');

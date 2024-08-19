@@ -7,6 +7,8 @@ use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ContactController;
+use App\Http\Middleware\EnsureTokenIsValid;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -317,10 +319,12 @@ Route::get('/download', function (Illuminate\Http\Request $request) {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //authentication
-Auth::Routes(['verify' => true]);
+
+Auth::routes(['verify' => true]);
 
 
 
 //task12
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('contact', [ContactController::class, 'send'])->name('contact.send');
+
