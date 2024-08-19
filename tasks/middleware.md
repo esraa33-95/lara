@@ -1,3 +1,4 @@
+
 <h1>middleware</h1>
 definition:Middleware provide a convenient mechanism for inspecting and filtering HTTP requests entering your application.
 <h2><b>1.Defining Middleware</b></h2>
@@ -272,6 +273,7 @@ public function register(): void
 {
     $this->app->singleton(TerminatingMiddleware::class);
 }
+
 
 
 

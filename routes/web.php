@@ -328,3 +328,6 @@ Auth::routes(['verify' => true]);
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('contact', [ContactController::class, 'send'])->name('contact.send');
 
+//task13
+//middleware
+
