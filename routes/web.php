@@ -7,7 +7,6 @@ use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ContactController;
-use App\Http\Middleware\EnsureTokenIsValid;
 
 Route::get('/', function () {
     return view('welcome');
@@ -328,6 +327,15 @@ Auth::routes(['verify' => true]);
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('contact', [ContactController::class, 'send'])->name('contact.send');
 
-//task13
-//middleware
 
+//task13
+//custom middleware isAdmin
+Route::middleware(['isAdmin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return 'Dashboard';
+    });
+      
+    Route::get('/users', function () {
+        return 'Users';
+    });
+});
