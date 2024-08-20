@@ -10,9 +10,18 @@ return Application::configure(basePath: dirname(__DIR__))
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        
+        //optional custom routefile
+        then: function () 
+        {
+            Route::prefix('teacher')->group(base_path('routes/teacher.php'));
+        },
     )
     ->withMiddleware(function (Middleware $middleware) {
-       //
+       $middleware->alias([
+        'isAdmin'=>\App\Http\Middleware\IsAdmin::class,
+
+       ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
