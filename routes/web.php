@@ -331,4 +331,41 @@ Route::get('contact', [ContactController::class, 'index'])->name('contact.index'
 Route::post('contact', [ContactController::class, 'send'])->name('contact.send');
 
 
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){ 
+        Route::get('cars/create',[CarController::class,'create'])->name('cars.create')->middleware('verified');
+        Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
+//index
+Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
+//edit
+Route::get('cars1/{id}/edit',[CarController::class,'edit'])->name('cars1.edit');
+//update
+Route::put('cars1/{id}/update',[CarController::class,'update'])->name('cars1.update');
 
+//show
+Route::get('cars1/{id}/show',[CarController::class,'show'])->name('cars1.show');
+
+//destroy delete
+//Route::get('cars1/{id}/delete',[CarController::class,'destroy'])->name('cars1.destroy');
+
+//request delete
+ Route::delete('cars1/{id}/destroy',[CarController::class,'destroy'])->name('cars1.delete');
+
+//showsoftdeleted
+Route::get('cars1/trashed',[CarController::class,'showDeleted'])->name('cars1.showDeleted');
+
+//restore
+Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.restore');
+
+//forcedelete
+ Route::delete('cars/{id}/force',[CarController::class,'forceDelete'])->name('cars1.forceDelete');
+
+ //upload
+ Route::get('cars/upload',[CarController::class,'uploadForm']);
+ Route::post('cars/uploadform',[CarController::class,'upload'])->name('upload');
+
+
+    });

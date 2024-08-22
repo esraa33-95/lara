@@ -9,7 +9,7 @@ Route::group([
     'prefix'=>'classes',
     'as'=>'classes.',
     //apply custom middleware isAdmin + custom routes 
-    'middleware'=>['web','verified','isAdmin','auth'],
+    'middleware'=>['web','verified','isAdmin'],
     ],function(){
     //create
     Route::get('create','create')->name('create');
