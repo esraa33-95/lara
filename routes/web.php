@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Xcontroller;
 use App\Http\Controllers\CarController;
@@ -200,7 +202,7 @@ Route::post('s',function(){
 
 //car project
 //create
-Route::get('cars/create',[CarController::class,'create'])->name('cars.create');
+Route::get('cars/create',[CarController::class,'create'])->name('cars.create')->middleware('verified');
 Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
 //index
 Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
@@ -237,37 +239,38 @@ Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.
 
 //classes project
 //Route::prefix('classes')->controller(ClassesController::class)->as('classes.')->group(function(){
-Route::group([
-'controller'=>ClassesController::class,
-'prefix'=>'classes',
-'as'=>'classes.',
-],function(){
-//create
-Route::get('create','create')->name('create');
-//store
-Route::post('store','store')->name('store');
-//index
-Route::get('','index')->name('index');
-//edit
-Route::get('{id}/edit','edit')->name('edit');
-//update
-Route::put('{id}/update','update')->name('update');
-//show
-Route::get('{id}/show','show')->name('show');
-//request delete
-Route::delete('delete','destroy')->name('destroy');
-//trashed
-Route::get('trashed','showDeleted')->name('showDeleted');
-//task7
-//restore
-Route::patch('{id}/restore','restore')->name('restore');
-//forcedelete
-Route::delete('{id}/forcedelete','forceDelete')->name('forceDelete');
-//upload image
-Route::get('uploadform','uploadForm');
-Route::post('upload','upload')->name('upload');
 
-});
+// Route::group([
+// 'controller'=>ClassesController::class,
+// 'prefix'=>'classes',
+// 'as'=>'classes.',
+// ],function(){
+// //create
+// Route::get('create','create')->name('create');
+// //store
+// Route::post('store','store')->name('store');
+// //index
+// Route::get('','index')->name('index');
+// //edit
+// Route::get('{id}/edit','edit')->name('edit');
+// //update
+// Route::put('{id}/update','update')->name('update');
+// //show
+// Route::get('{id}/show','show')->name('show');
+// //request delete
+// Route::delete('delete','destroy')->name('destroy');
+// //trashed
+// Route::get('trashed','showDeleted')->name('showDeleted');
+// //task7
+// //restore
+// Route::patch('{id}/restore','restore')->name('restore');
+// //forcedelete
+// Route::delete('{id}/forcedelete','forceDelete')->name('forceDelete');
+// //upload image
+// Route::get('uploadform','uploadForm');
+// Route::post('upload','upload')->name('upload');
+
+// });
 
 
 
@@ -305,15 +308,15 @@ Route::get('testone','test')->name('test');
 });
 
 //traversal path
-Route::get('/download', function (Illuminate\Http\Request $request) {
-    $file = $request->input('file');
-    $path = public_path('assets/images/' . $file);
-    if (file_exists($path)) {
-        return response()->download($path);
-    } else {
-        abort(404, 'File not found');
-    }
-});
+// Route::get('/download', function (Illuminate\Http\Request $request) {
+//     $file = $request->input('file');
+//     $path = public_path('assets/images/' . $file);
+//     if (file_exists($path)) {
+//         return response()->download($path);
+//     } else {
+//         abort(404, 'File not found');
+//     }
+// });
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -328,14 +331,41 @@ Route::get('contact', [ContactController::class, 'index'])->name('contact.index'
 Route::post('contact', [ContactController::class, 'send'])->name('contact.send');
 
 
-//task13
-//custom middleware isAdmin
-Route::middleware(['isAdmin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return 'Dashboard';
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){ 
+        Route::get('cars/create',[CarController::class,'create'])->name('cars.create')->middleware('verified');
+        Route::post('cars/store',[CarController::class,'store'])->name('cars.store');
+//index
+Route::get('cars1',[CarController::class,'index'])->name('cars1.index');
+//edit
+Route::get('cars1/{id}/edit',[CarController::class,'edit'])->name('cars1.edit');
+//update
+Route::put('cars1/{id}/update',[CarController::class,'update'])->name('cars1.update');
+
+//show
+Route::get('cars1/{id}/show',[CarController::class,'show'])->name('cars1.show');
+
+//destroy delete
+//Route::get('cars1/{id}/delete',[CarController::class,'destroy'])->name('cars1.destroy');
+
+//request delete
+ Route::delete('cars1/{id}/destroy',[CarController::class,'destroy'])->name('cars1.delete');
+
+//showsoftdeleted
+Route::get('cars1/trashed',[CarController::class,'showDeleted'])->name('cars1.showDeleted');
+
+//restore
+Route::patch('cars/{id}/restore',[CarController::class,'restore'])->name('cars1.restore');
+
+//forcedelete
+ Route::delete('cars/{id}/force',[CarController::class,'forceDelete'])->name('cars1.forceDelete');
+
+ //upload
+ Route::get('cars/upload',[CarController::class,'uploadForm']);
+ Route::post('cars/uploadform',[CarController::class,'upload'])->name('upload');
+
+
     });
-      
-    Route::get('/users', function () {
-        return 'Users';
-    });
-});

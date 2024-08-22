@@ -3,6 +3,10 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\IsAdmin;
+
+
 //use App\Http\Middleware\EnsureTokenIsValid;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -14,14 +18,23 @@ return Application::configure(basePath: dirname(__DIR__))
         //optional custom routefile
         then: function () 
         {
-            Route::prefix('teacher')->group(base_path('routes/teacher.php'));
+            Route::prefix('admin')->group(base_path('routes/admin.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-       $middleware->alias([
-        'isAdmin'=>\App\Http\Middleware\IsAdmin::class,
+    //    $middleware->alias([
+    //     'isAdmin'=>IsAdmin::class,
 
-       ]);
+    //    ]);
+    $middleware->alias([
+        /**** OTHER MIDDLEWARE ALIASES ****/
+        'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+    ]);
+    
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

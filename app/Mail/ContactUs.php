@@ -13,13 +13,13 @@ use Illuminate\Queue\SerializesModels;
 class ContactUs extends Mailable
 {
     use Queueable, SerializesModels;
-    public $data;
+    
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct(public $data)
     {
-        $this->data = $data;
+       //
     }
 
     /**
@@ -28,10 +28,10 @@ class ContactUs extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from :new Address('esraahedia39@gmail.com','esraa'),
-            replyTo : [new Address('esraahedia33@gmail.com','soso')],
+            from :new Address($this->data['email'],$this->data['name']),
+            //replyTo : [new Address('esraahedia33@gmail.com','soso')],
            
-            subject: 'Contact Us',
+            subject: $this->data['subject'],
         );
     }
 
