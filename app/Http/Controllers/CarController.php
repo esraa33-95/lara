@@ -17,6 +17,7 @@ class CarController extends Controller
      */
     public function index()
     {
+        //dd(session('test'));
        $cars = car::with('Category')->get();
       
        return view('cars',compact('cars'));
@@ -27,6 +28,7 @@ class CarController extends Controller
      */
     public function create()
     {
+        session()->put('test','hi lara');
         $categries = Category::select('id','category_name')->get();
         return view('add_car', compact('categries'));
     }
